@@ -2,6 +2,7 @@ extends Node2D
 const Constants := preload("res://constants.gd")
 var main := preload("res://main.gd")
 
+@export var coordinate: Vector2i
 @export var rail_type: Constants.RailType = Constants.RailType.STRAIGHT
 @export var target_rotation: int = -1
 
@@ -16,14 +17,12 @@ func _ready() -> void:
 	rotation_degrees = target_rotation
 
 func lock_track() -> void:
-	print("Locking track at %s" % position)
 	is_locked = true
 	
 func unlock_track() -> void:
 	is_locked = false
 
 func spin(clockwise: bool) -> void:
-	print("Spinning track at %s" % position)
 	if operation_underway or is_locked:
 		return
 	operation_underway = true
@@ -41,9 +40,13 @@ func train_can_enter(side: Constants.Side) -> bool:
 	var connected_sides: Array = get_connected_sides();
 	return connected_sides.has(side);
 
-func get_exit_side_from_travel_direction(direction: Constants.Direction) -> Constants.Side:
-	var entrance_side: Constants.Side = Constants.convert_dir_to_entrance_side(direction)
-	return get_exit_side_from_entrance(entrance_side)
+func get_exit_side_from_travel_direction(direction_heading: Constants.Direction) -> Constants.Side:
+	print("Train is heading %s"%Constants.Direction.keys()[direction_heading])
+	var entrance_side: Constants.Side = Constants.convert_dir_to_entrance_side(direction_heading)
+	print("%s is the entrance side of %s"%[Constants.Side.keys()[entrance_side],self])
+	var exit_side = get_exit_side_from_entrance(entrance_side)
+	print("%s is the exit side of the current rail"%Constants.Side.keys()[exit_side])
+	return exit_side
 	
 ## Returns a side or null
 func get_exit_side_from_entrance(side: Constants.Side) -> Constants.Side:

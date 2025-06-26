@@ -37,6 +37,7 @@ static func convert_exit_side_to_dir(side: Side):
 		Side.RIGHT:
 			return Direction.EAST
 		_:
+			print("COULD NOT PARSE DIRECTION FROM SIDE %s"%side)
 			push_error("Could not parse direction from side %s"%side)
 			return Direction.NULL
 
@@ -67,3 +68,18 @@ static func convert_dir_to_entrance_side(direction: Direction):
 		_:
 			push_error("Could not parse side from direction %s"%direction)
 			return Constants.Side.NULL
+
+static func get_movement_vector_from_dir(dir: Direction) -> Vector2i:
+	match dir:
+		Constants.Direction.NORTH:
+			return Vector2i(0, -1)
+		Constants.Direction.SOUTH:			
+			return Vector2i(0, 1)
+		Constants.Direction.WEST:
+			return Vector2i(-1, 0)
+		Constants.Direction.EAST:
+			return Vector2i(1, 0)
+		_:
+			print("CANNOT FIND EXIT DIR (%s)" % dir)
+			push_error("CANNOT FIND EXIT DIR %s", dir)
+			return Vector2i(0,0)

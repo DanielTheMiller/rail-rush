@@ -26,6 +26,7 @@ func move() -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "position", target_rail.position + Constants.TRAIN_HORIZ_POS_OFFSET, move_duration_s)
 	await get_tree().create_timer(move_duration_s).timeout
+	current_rail = target_rail
 
 # Given the current moving direction
 # Analyse the current rail direction, change our direction to match

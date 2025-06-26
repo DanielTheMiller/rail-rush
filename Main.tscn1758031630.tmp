@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvckponlukw5n"]
+
+[ext_resource type="Script" uid="uid://2oi7xkl2ul6a" path="res://main.gd" id="1_uu6xs"]
+[ext_resource type="Texture2D" uid="uid://b1dvxj35341su" path="res://images/Grass.png" id="2_uu6xs"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_uu6xs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(375, 375)
+texture = ExtResource("2_uu6xs")
