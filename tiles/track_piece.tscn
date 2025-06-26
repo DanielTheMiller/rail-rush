@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://d06ita735c12w"]
+
+[ext_resource type="Script" uid="uid://g074wobwvsmw" path="res://tiles/track_script.gd" id="1_ljy4k"]
+[ext_resource type="Texture2D" uid="uid://b7bekunrx7ayp" path="res://images/Straight.png" id="2_o722q"]
+[ext_resource type="Script" uid="uid://bxmmv88o6uaij" path="res://tiles/click_listener.gd" id="3_7o8ol"]
+
+[node name="TrackPiece" type="Node2D"]
+script = ExtResource("1_ljy4k")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+texture = ExtResource("2_o722q")
+script = ExtResource("3_7o8ol")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://mpyw4lmerwkc"]
+
+[ext_resource type="Texture2D" uid="uid://qi4vubp3qcdm" path="res://images/train_side.png" id="1_dixmg"]
+[ext_resource type="Script" uid="uid://batl6cp2b11tf" path="res://actors/train_script.gd" id="1_ebgmk"]
+
+[node name="Train" type="Node2D"]
+script = ExtResource("1_ebgmk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dixmg")

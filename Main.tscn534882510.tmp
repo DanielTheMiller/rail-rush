@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvckponlukw5n"]
+
+[ext_resource type="Script" uid="uid://2oi7xkl2ul6a" path="res://main.gd" id="1_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://c2pxuijfhscom" path="res://tiles/rail_straight.tscn" id="2_r0du0"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_uu6xs")
+
+[node name="Node2D2" parent="." instance=ExtResource("2_r0du0")]
+position = Vector2(-12, 104)
+rotation = 3.14159

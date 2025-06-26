@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c86agix0rw4lj"]
+
+[ext_resource type="Script" uid="uid://bxmmv88o6uaij" path="res://tiles/click_listener.gd" id="2_1em5c"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yk0p2"]
+load_path = "res://.godot/imported/Curve.png-f3259102a5aef78ac6826e0da7bc490a.ctex"
+
+[node name="RailCurve" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+texture = SubResource("CompressedTexture2D_yk0p2")
+script = ExtResource("2_1em5c")

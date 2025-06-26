@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://nccanulsslda"]
+
+[ext_resource type="Texture2D" uid="uid://b7bekunrx7ayp" path="res://images/Straight.png" id="1_a7v02"]
+[ext_resource type="Script" uid="uid://bxmmv88o6uaij" path="res://tiles/click_listener.gd" id="2_8kr8v"]
+
+[node name="Node2D" type="Node2D"]
+rotation = 6.28319
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+texture = ExtResource("1_a7v02")
+script = ExtResource("2_8kr8v")
