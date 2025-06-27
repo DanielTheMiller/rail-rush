@@ -42,9 +42,9 @@ func train_can_enter(side: Constants.Side) -> bool:
 
 func get_exit_side_from_travel_direction(direction_heading: Constants.Direction) -> Constants.Side:
 	var entrance_side: Constants.Side = Constants.convert_dir_to_entrance_side(direction_heading)
-	print("%s is the entrance side of %s"%[Constants.Side.keys()[entrance_side],self])
+	#print("%s is the entrance side of %s"%[Constants.Side.keys()[entrance_side],self])
 	var exit_side = get_exit_side_from_entrance(entrance_side)
-	print("%s is the exit side of the current rail"%Constants.Side.keys()[exit_side])
+	#print("%s is the exit side of the current rail"%Constants.Side.keys()[exit_side])
 	return exit_side
 	
 ## Returns a side or null

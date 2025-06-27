@@ -63,23 +63,25 @@ func find_spawning_rail():
 func run():
 	while true:	
 		print("---\n%s"%Time.get_ticks_msec())
-		get_tree().create_timer(Constants.TRAIN_MOVE_TIME_S).timeout
 		var exit_dir = train_instance.get_direction_of_next_rail()
 		if exit_dir == Constants.Direction.NULL:
-			print("No valid track connection. Destroying train")
-			destroy_train()
-			init_train()
+			print("DERAIL: NO VALID CONNECTION")
+			await respawn_train()
 			continue
 		train_instance.travelling_direction = exit_dir
 		var movement_vector = Constants.get_movement_vector_from_dir(exit_dir)
 		var next_vector = current_rail_vector + movement_vector
 		print("Current movement vector is %s, and the next actual vector is %s" % [movement_vector, next_vector])
 		if not rail_instances.has(next_vector):
-			print("Cannot find next rail! Destroying train")
-			destroy_train()
-			init_train()
+			print("DERAIL: NO TRACK AT NEXT VECTOR")
+			await respawn_train()
 			continue
 		var next_rail: Node2D = rail_instances[next_vector]
+		# Does the next rail have an ideal rotation to move into?
+		if not next_rail_aligned(exit_dir, next_rail):
+			print("DERAIL: NEXT TRACK NOT ALIGNED")
+			await respawn_train()
+			continue
 		next_rail.lock_track()
 		var previous_rail = train_instance.current_rail
 		train_instance.set_target_rail(next_rail)
@@ -87,6 +89,28 @@ func run():
 		current_rail_vector = next_vector
 		previous_rail.unlock_track()
 
+func respawn_train():
+	destroy_train()
+	await get_tree().create_timer(Constants.TRAIN_MOVE_TIME_S).timeout # Little timer between respawn
+	await init_train()
+
 func destroy_train():
 	train_instance.current_rail.unlock_track()
 	remove_child(train_instance)
+
+# Returns a bool representing whether the current rail connects to the next rail
+func next_rail_aligned(exit_dir: Constants.Direction, next_rail: Node2D) -> bool:
+	var entrance_side: Constants.Side
+	match exit_dir:
+		Constants.Direction.NORTH:
+			entrance_side = Constants.Side.BOTTOM
+		Constants.Direction.WEST:
+			entrance_side = Constants.Side.RIGHT
+		Constants.Direction.EAST:
+			entrance_side = Constants.Side.LEFT
+		Constants.Direction.SOUTH:
+			entrance_side = Constants.Side.TOP
+		_:
+			print("NO EXIT DIR PROVIDED TO ALIGNMENT CHECKER")
+			return false
+	return next_rail.train_can_enter(entrance_side)
