@@ -12,7 +12,7 @@ const RAIL_OFFSET = Vector2i(25,25)
 
 func _ready():
 	create_game_grid()
-	init_train()
+	await init_train()
 	run()
 	
 func create_game_grid():
@@ -39,10 +39,10 @@ func init_train():
 		await get_tree().create_timer(.5).timeout
 		ready_rail = find_spawning_rail()
 	ready_rail.lock_track()
-	get_tree().create_timer(5).timeout
 	train_instance = train_scene.instantiate()
-	train_instance.current_rail = ready_rail
+	train_instance.set_target_rail(ready_rail)
 	add_child(train_instance)
+	await train_instance.spawn_train()
 	print("Train spawned")
 
 func find_spawning_rail():
@@ -63,7 +63,7 @@ func find_spawning_rail():
 func run():
 	while true:	
 		print("---\n%s"%Time.get_ticks_msec())
-		await get_tree().create_timer(2.5).timeout
+		get_tree().create_timer(Constants.TRAIN_MOVE_TIME_S).timeout
 		var exit_dir = train_instance.get_direction_of_next_rail()
 		if exit_dir == Constants.Direction.NULL:
 			print("No valid track connection. Destroying train")
@@ -72,7 +72,8 @@ func run():
 			continue
 		train_instance.travelling_direction = exit_dir
 		var movement_vector = Constants.get_movement_vector_from_dir(exit_dir)
-		var next_vector = (current_rail_vector+movement_vector)
+		var next_vector = current_rail_vector + movement_vector
+		print("Current movement vector is %s, and the next actual vector is %s" % [movement_vector, next_vector])
 		if not rail_instances.has(next_vector):
 			print("Cannot find next rail! Destroying train")
 			destroy_train()
@@ -82,7 +83,8 @@ func run():
 		next_rail.lock_track()
 		var previous_rail = train_instance.current_rail
 		train_instance.set_target_rail(next_rail)
-		train_instance.move()
+		await train_instance.move()
+		current_rail_vector = next_vector
 		previous_rail.unlock_track()
 
 func destroy_train():

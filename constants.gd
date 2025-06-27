@@ -23,8 +23,10 @@ enum Direction {
 const GRID_HEIGHT = 10
 const GRID_WIDTH = 10
 const CELL_SIZE_P = 50
-
 const TRAIN_HORIZ_POS_OFFSET = Vector2(0, -7) # Train offset while traveling horizontally
+
+# How long in seconds does it take for a train to move from cell to cell
+const TRAIN_MOVE_TIME_S = 1.5
 
 static func convert_exit_side_to_dir(side: Side):
 	match side:
