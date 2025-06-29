@@ -44,6 +44,8 @@ func init_train():
 	train_instance.current_rail_vector = ready_rail_vector
 	train_instance.set_target_rail(ready_rail)
 	add_child(train_instance)
+	var train_id: String = UUID.create_new()
+	train_instances.set(train_id, train_instance)
 	await train_instance.spawn_train()
 	print("Train spawned")
 
