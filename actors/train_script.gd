@@ -4,6 +4,7 @@ var current_rail: Node2D
 @export var travelling_direction: Constants.Direction = Constants.Direction.EAST
 var move_duration_s: int = Constants.TRAIN_MOVE_TIME_S # In variable for flexibility
 var target_rail = Node2D
+@export var current_rail_vector: Vector2i
 	
 func spawn_train() -> void:
 	match travelling_direction:

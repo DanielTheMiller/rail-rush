@@ -5,8 +5,8 @@ var train_scene := preload("res://actors/train.tscn")
 var piece_scene := preload("res://tiles/track_piece.tscn")
 
 var train_instance: Node2D
-var current_rail_vector: Vector2i
-var rail_instances:Dictionary = {}
+var rail_instances: Dictionary = {}
+var train_instances: Dictionary = {} # Implement that
 
 const RAIL_OFFSET = Vector2i(25,25)
 
@@ -33,19 +33,21 @@ func spawn_rail(position: Vector2i):
 	
 func init_train():
 	# Find the first straight rail on the left to feed a train into
-	var ready_rail = find_spawning_rail()
-	while(ready_rail == null):
+	var ready_rail_vector: Vector2i = find_spawning_rail_vector()
+	while(ready_rail_vector == Vector2i(-1, -1)):
 		print("Cannot find ready rail!")
 		await get_tree().create_timer(.5).timeout
-		ready_rail = find_spawning_rail()
+		ready_rail_vector = find_spawning_rail_vector()
+	var ready_rail: Node2D = rail_instances[ready_rail_vector]
 	ready_rail.lock_track()
 	train_instance = train_scene.instantiate()
+	train_instance.current_rail_vector = ready_rail_vector
 	train_instance.set_target_rail(ready_rail)
 	add_child(train_instance)
 	await train_instance.spawn_train()
 	print("Train spawned")
 
-func find_spawning_rail():
+func find_spawning_rail_vector() -> Vector2i:
 	var viable_rails = []
 	for i in range(Constants.GRID_HEIGHT):
 		var rail_key = Vector2i(0, i)
@@ -54,11 +56,10 @@ func find_spawning_rail():
 		if can_enter:
 			viable_rails.append(rail_key)
 	if len(viable_rails) == 0:
-		return null
+		return Vector2i(-1,-1)
 		print("Train couldn't enter any rails")
 	var rail_index = randi() % len(viable_rails)
-	current_rail_vector = viable_rails[rail_index]
-	return rail_instances[current_rail_vector]
+	return viable_rails[rail_index]
 
 func run():
 	while true:	
@@ -70,7 +71,7 @@ func run():
 			continue
 		train_instance.travelling_direction = exit_dir
 		var movement_vector = Constants.get_movement_vector_from_dir(exit_dir)
-		var next_vector = current_rail_vector + movement_vector
+		var next_vector = train_instance.current_rail_vector + movement_vector
 		print("Current movement vector is %s, and the next actual vector is %s" % [movement_vector, next_vector])
 		if not rail_instances.has(next_vector):
 			print("DERAIL: NO TRACK AT NEXT VECTOR")
@@ -86,7 +87,7 @@ func run():
 		var previous_rail = train_instance.current_rail
 		train_instance.set_target_rail(next_rail)
 		await train_instance.move()
-		current_rail_vector = next_vector
+		train_instance.current_rail_vector = next_vector
 		previous_rail.unlock_track()
 
 func respawn_train():
