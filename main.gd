@@ -65,40 +65,43 @@ func find_spawning_rail_vector() -> Vector2i:
 
 func run():
 	while true:	
-		print("---\n%s"%Time.get_ticks_msec())
-		var exit_dir = train_instance.get_direction_of_next_rail()
-		if exit_dir == Constants.Direction.NULL:
-			print("DERAIL: NO VALID CONNECTION")
-			await respawn_train()
-			continue
-		train_instance.travelling_direction = exit_dir
-		var movement_vector = Constants.get_movement_vector_from_dir(exit_dir)
-		var next_vector = train_instance.current_rail_vector + movement_vector
-		print("Current movement vector is %s, and the next actual vector is %s" % [movement_vector, next_vector])
-		if not rail_instances.has(next_vector):
-			print("DERAIL: NO TRACK AT NEXT VECTOR")
-			await respawn_train()
-			continue
-		var next_rail: Node2D = rail_instances[next_vector]
-		# Does the next rail have an ideal rotation to move into?
-		if not next_rail_aligned(exit_dir, next_rail):
-			print("DERAIL: NEXT TRACK NOT ALIGNED")
-			await respawn_train()
-			continue
-		next_rail.lock_track()
-		var previous_rail = train_instance.current_rail
-		train_instance.set_target_rail(next_rail)
-		await train_instance.move()
-		train_instance.current_rail_vector = next_vector
-		previous_rail.unlock_track()
+		for train_id in train_instances:
+			var train_instance = train_instances[train_id]
+			var exit_dir = train_instance.get_direction_of_next_rail()
+			if exit_dir == Constants.Direction.NULL:
+				print("DERAIL: NO VALID CONNECTION")
+				await respawn_train(train_id)
+				continue
+			train_instance.travelling_direction = exit_dir
+			var movement_vector = Constants.get_movement_vector_from_dir(exit_dir)
+			var next_vector = train_instance.current_rail_vector + movement_vector
+			print("Current movement vector is %s, and the next actual vector is %s" % [movement_vector, next_vector])
+			if not rail_instances.has(next_vector):
+				print("DERAIL: NO TRACK AT NEXT VECTOR")
+				await respawn_train(train_id)
+				continue
+			var next_rail: Node2D = rail_instances[next_vector]
+			# Does the next rail have an ideal rotation to move into?
+			if not next_rail_aligned(exit_dir, next_rail):
+				print("DERAIL: NEXT TRACK NOT ALIGNED")
+				await respawn_train(train_id)
+				continue
+			next_rail.lock_track()
+			var previous_rail = train_instance.current_rail
+			train_instance.set_target_rail(next_rail)
+			await train_instance.move()
+			train_instance.current_rail_vector = next_vector
+			previous_rail.unlock_track()
 
-func respawn_train():
-	destroy_train()
+func respawn_train(train_id: String):
+	destroy_train(train_id)
 	await get_tree().create_timer(Constants.TRAIN_MOVE_TIME_S).timeout # Little timer between respawn
 	await init_train()
 
-func destroy_train():
+func destroy_train(train_id: String):
+	var train_instance = train_instances.get(train_id)
 	train_instance.current_rail.unlock_track()
+	train_instances.erase(train_id)
 	remove_child(train_instance)
 
 # Returns a bool representing whether the current rail connects to the next rail
