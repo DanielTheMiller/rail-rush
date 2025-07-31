@@ -2,105 +2,84 @@ extends Node2D
 
 # Preload the rail scene
 var train_scene := preload("res://actors/train.tscn")
-var piece_scene := preload("res://tiles/track_piece.tscn")
+
+var grid_service = preload("res://services/grid_service.gd").new(self)
 
 var train_instance: Node2D
-var rail_instances: Dictionary = {}
 var train_instances: Dictionary = {} # Implement that
 
-const RAIL_OFFSET = Vector2i(25,25)
-
 func _ready():
-	create_game_grid()
-	await init_train()
+	grid_service.create_game_grid()
+	init_train()
 	run()
-	
-func create_game_grid():
-	for x in range(0, Constants.GRID_WIDTH):
-		for y in range(0, Constants.GRID_HEIGHT):
-			spawn_rail(Vector2i(x, y))
-		
-func spawn_rail(position: Vector2i):
-	var no_of_rail_types: int = len(Constants.RailType.values())
-	var rail_type: Constants.RailType = Constants.RailType.values()[randi() % no_of_rail_types]
-	var rail_instance = piece_scene.instantiate()
-	rail_instance.position = RAIL_OFFSET + (position * Constants.CELL_SIZE_P)
-	rail_instance.target_rotation = (randi() % 4) * 90
-	rail_instance.rail_type = rail_type
-	rail_instance.coordinate = position
-	add_child(rail_instance)
-	rail_instances.set(position, rail_instance)
 	
 func init_train():
 	# Find the first straight rail on the left to feed a train into
-	var ready_rail_vector: Vector2i = find_spawning_rail_vector()
+	var ready_rail_vector: Vector2i = grid_service.find_spawning_rail_vector()
+	print("Spawn location is %s" % ready_rail_vector)
 	while(ready_rail_vector == Vector2i(-1, -1)):
 		print("Cannot find ready rail!")
 		await get_tree().create_timer(.5).timeout
-		ready_rail_vector = find_spawning_rail_vector()
-	var ready_rail: Node2D = rail_instances[ready_rail_vector]
+		ready_rail_vector = grid_service.find_spawning_rail_vector()
+	var ready_rail: Node2D = grid_service.get_rail(ready_rail_vector)
+	var target_vector = ready_rail_vector + Vector2i(1, 0)
+	var target_rail: Node2D = grid_service.get_rail(target_vector)
 	ready_rail.lock_track()
 	train_instance = train_scene.instantiate()
 	train_instance.current_rail_vector = ready_rail_vector
-	train_instance.set_target_rail(ready_rail)
+	train_instance.set_next_target_rail(target_vector, target_rail)
 	add_child(train_instance)
 	var train_id: String = UUID.create_new()
 	train_instances.set(train_id, train_instance)
 	await train_instance.spawn_train()
 	print("Train spawned")
 
-func find_spawning_rail_vector() -> Vector2i:
-	var viable_rails = []
-	for i in range(Constants.GRID_HEIGHT):
-		var rail_key = Vector2i(0, i)
-		var rail = rail_instances[rail_key]
-		var can_enter = rail.train_can_enter(Constants.Side.LEFT)
-		if can_enter:
-			viable_rails.append(rail_key)
-	if len(viable_rails) == 0:
-		return Vector2i(-1,-1)
-		print("Train couldn't enter any rails")
-	var rail_index = randi() % len(viable_rails)
-	return viable_rails[rail_index]
-
 func run():
 	while true:	
 		for train_id in train_instances:
 			var train_instance = train_instances[train_id]
-			var exit_dir = train_instance.get_direction_of_next_rail()
+			train_instance.move() # Don't await		
+		await get_tree().create_timer(Constants.TRAIN_MOVE_TIME_S).timeout
+		for train_id in train_instances:
+			var train_instance = train_instances[train_id]
+			train_instance.set_current_to_target()
+			var exit_dir = train_instance.get_exit_direction_of_current_rail()
 			if exit_dir == Constants.Direction.NULL:
 				print("DERAIL: NO VALID CONNECTION")
-				await respawn_train(train_id)
+				respawn_train(train_id)
 				continue
 			train_instance.travelling_direction = exit_dir
 			var movement_vector = Constants.get_movement_vector_from_dir(exit_dir)
 			var next_vector = train_instance.current_rail_vector + movement_vector
 			print("Current movement vector is %s, and the next actual vector is %s" % [movement_vector, next_vector])
-			if not rail_instances.has(next_vector):
+			if not grid_service.grid_contains(next_vector):
 				print("DERAIL: NO TRACK AT NEXT VECTOR")
-				await respawn_train(train_id)
+				respawn_train(train_id)
 				continue
-			var next_rail: Node2D = rail_instances[next_vector]
+			var next_rail: Node2D = grid_service.get_rail(next_vector)
 			# Does the next rail have an ideal rotation to move into?
 			if not next_rail_aligned(exit_dir, next_rail):
 				print("DERAIL: NEXT TRACK NOT ALIGNED")
-				await respawn_train(train_id)
+				respawn_train(train_id)
 				continue
-			next_rail.lock_track()
 			var previous_rail = train_instance.current_rail
-			train_instance.set_target_rail(next_rail)
-			await train_instance.move()
-			train_instance.current_rail_vector = next_vector
-			previous_rail.unlock_track()
+			if previous_rail != null:
+				previous_rail.unlock_track()
+			next_rail.lock_track()
+			train_instance.set_next_target_rail(next_vector, next_rail)
 
 func respawn_train(train_id: String):
 	destroy_train(train_id)
+	print("Waiting a few seconds before respawning train")
 	await get_tree().create_timer(Constants.TRAIN_MOVE_TIME_S).timeout # Little timer between respawn
 	await init_train()
 
 func destroy_train(train_id: String):
 	var train_instance = train_instances.get(train_id)
-	train_instance.current_rail.unlock_track()
+	if train_instance.target_rail != null:
+		train_instance.target_rail.unlock_track()
+	if train_instance.current_rail != null:
+		train_instance.current_rail.unlock_track()
 	train_instances.erase(train_id)
 	remove_child(train_instance)
 

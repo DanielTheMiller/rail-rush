@@ -17,9 +17,11 @@ func _ready() -> void:
 	rotation_degrees = target_rotation
 
 func lock_track() -> void:
+	visible = false
 	is_locked = true
 	
 func unlock_track() -> void:
+	visible = true
 	is_locked = false
 
 func spin(clockwise: bool) -> void:

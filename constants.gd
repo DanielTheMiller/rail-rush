@@ -9,7 +9,8 @@ enum Side {
 
 enum RailType {
 	STRAIGHT,
-	CURVE
+	CURVE,
+	OUT_OF_BOUNDS
 }
 
 enum Direction {
@@ -24,9 +25,10 @@ const GRID_HEIGHT = 10
 const GRID_WIDTH = 10
 const CELL_SIZE_P = 50
 const TRAIN_HORIZ_POS_OFFSET = Vector2(0, -7) # Train offset while traveling horizontally
+const RAIL_OFFSET = Vector2i(25,25) # How offset the rail image should be on the rail tiles
 
 # How long in seconds does it take for a train to move from cell to cell
-const TRAIN_MOVE_TIME_S = 1.5
+const TRAIN_MOVE_TIME_S = 1
 
 static func convert_exit_side_to_dir(side: Side):
 	match side:

@@ -22,6 +22,10 @@ window/size/viewport_height=500
 window/size/initial_position_type=0
 window/size/resizable=false
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
