@@ -7,6 +7,7 @@ var main: Node2D
 
 func _init(main_param: Node2D):
 	self.main = main_param
+	create_game_grid()
 
 func create_game_grid():
 	for x in range(0, Constants.GRID_WIDTH):
@@ -15,9 +16,9 @@ func create_game_grid():
 			var rail_type: Constants.RailType = Constants.RailType.values()[randi() % no_of_rail_types]
 			spawn_rail(Vector2i(x, y), rail_type)
 		# Create the rails for de/spawning on
-		for y in [-1, Constants.GRID_HEIGHT + 1]:
+		for y in [-1, Constants.GRID_HEIGHT]:
 			spawn_rail(Vector2i(x, y), Constants.RailType.OUT_OF_BOUNDS)
-	for x in [-1, Constants.GRID_WIDTH + 1]:
+	for x in [-1, Constants.GRID_WIDTH]:
 		for y in range(0, Constants.GRID_HEIGHT):
 			spawn_rail(Vector2i(x, y), Constants.RailType.OUT_OF_BOUNDS)
 
