@@ -9,7 +9,7 @@ func _init(main_param: Node2D):
 	self.main = main_param
 	create_game_grid()
 
-func create_game_grid():
+func create_game_grid() -> void:
 	for x in range(0, Constants.GRID_WIDTH):
 		for y in range(0, Constants.GRID_HEIGHT):
 			var no_of_rail_types: int = len(Constants.RailType.values())
@@ -37,7 +37,7 @@ func get_rail(position: Vector2i):
 func grid_contains(position: Vector2i):
 	return rail_instances.has(position)
 
-func find_spawning_rail_vector(spawn_origin_dir: Constants.Side = Constants.Side.LEFT) -> Vector2i:
+func find_spawn_location(spawn_origin_dir: Constants.Side = Constants.Side.LEFT) -> SpawnInstruction:
 	var viable_rail_vectors = []
 	for i in range(Constants.GRID_HEIGHT):
 		var rail_key = Vector2i(0, i)
@@ -46,7 +46,7 @@ func find_spawning_rail_vector(spawn_origin_dir: Constants.Side = Constants.Side
 		if can_enter:
 			viable_rail_vectors.append(rail_key)
 	if len(viable_rail_vectors) == 0:
-		return Vector2i(-1,-1)
+		return null
 		print("Train couldn't enter any rails")
 	var rail_index = randi() % len(viable_rail_vectors)
 	var viable_rail_vector = viable_rail_vectors[rail_index]
@@ -60,4 +60,7 @@ func find_spawning_rail_vector(spawn_origin_dir: Constants.Side = Constants.Side
 			viable_rail_vector -= Vector2i(0, 1)
 		Constants.Side.BOTTOM:
 			viable_rail_vector += Vector2i(0, 1)
-	return viable_rail_vector
+	var first: Track = get_rail(viable_rail_vector)
+	var second: Track = get_rail(viable_rail_vector + Vector2i(1, 0))
+	var spawnDef = SpawnInstruction.new(first, second, Constants.Direction.EAST)
+	return spawnDef

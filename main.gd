@@ -5,7 +5,7 @@ var train_scene := preload("res://actors/train.tscn")
 
 var grid_service = preload("res://services/grid_service.gd").new(self)
 
-var train_instance: Node2D
+var train_instance: Train
 var train_instances: Dictionary = {} # Implement that
 
 func _ready():
@@ -15,19 +15,19 @@ func _ready():
 	
 func init_train():
 	# Find the first straight rail on the left to feed a train into
-	var ready_rail_vector: Vector2i = grid_service.find_spawning_rail_vector()
-	print("Spawn location is %s" % ready_rail_vector)
-	while(ready_rail_vector == Vector2i(-1, -1)):
+	var spawn_location: SpawnInstruction = grid_service.find_spawn_location()
+	print("Spawn location is %s" % spawn_location.get_first_vector())
+	while (spawn_location == null):
 		print("Cannot find ready rail!")
 		await get_tree().create_timer(.5).timeout
-		ready_rail_vector = grid_service.find_spawning_rail_vector()
-	var ready_rail: Node2D = grid_service.get_rail(ready_rail_vector)
-	var target_vector = ready_rail_vector + Vector2i(1, 0)
-	var target_rail: Node2D = grid_service.get_rail(target_vector)
+		spawn_location = grid_service.find_spawn_location()
+	var ready_rail: Track = spawn_location.first_rail
+	var target_rail: Track = spawn_location.second_rail
 	ready_rail.lock_track()
+	target_rail.lock_track()
 	train_instance = train_scene.instantiate()
-	train_instance.current_rail_vector = ready_rail_vector
-	train_instance.set_next_target_rail(target_vector, target_rail)
+	train_instance.set_current_rail(ready_rail)
+	train_instance.set_next_target_rail(target_rail)
 	add_child(train_instance)
 	var train_id: String = UUID.create_new()
 	train_instances.set(train_id, train_instance)

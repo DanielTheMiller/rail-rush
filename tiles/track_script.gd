@@ -1,4 +1,4 @@
-extends Node2D
+class_name Track extends Node2D
 const Constants := preload("res://constants.gd")
 var main := preload("res://main.gd")
 

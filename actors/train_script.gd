@@ -1,11 +1,9 @@
-extends Node2D
+class_name Train extends Node2D
 
 @export var travelling_direction: Constants.Direction = Constants.Direction.EAST
 var move_duration_s: int = Constants.TRAIN_MOVE_TIME_S # In variable for flexibility
-var current_rail: Node2D
-var target_rail: Node2D
-@export var current_rail_vector: Vector2i
-@export var target_rail_vector: Vector2i
+var current_rail: Track
+var target_rail: Track
 @export var desired_destination: Constants.Direction = Constants.Direction.WEST
 
 func spawn_train() -> void:
@@ -28,17 +26,17 @@ func move() -> void:
 func turn_if_required() -> void:
 	if current_rail == null:
 		return # This train is spawning, doesn't need to turn yet
-	var exit_side: Constants.Direction = current_rail.get_exit_side_from_travel_direction(travelling_direction)
+	var exit_side: Constants.Side = current_rail.get_exit_side_from_travel_direction(travelling_direction)
 
 func set_current_to_target() -> void:
 	current_rail = target_rail
-	current_rail_vector = target_rail_vector
 	target_rail = null
-	target_rail_vector = Vector2i(-1,-1)
 
-func set_next_target_rail(rail_vector: Vector2i, rail: Node2D) -> void:
+func set_current_rail(rail: Track) -> void:
+	current_rail = rail
+
+func set_next_target_rail(rail: Track) -> void:
 	target_rail = rail
-	target_rail_vector = rail_vector
 
 # Get the direction that the proceeding rail is
 func get_exit_direction_of_current_rail() -> Constants.Direction:

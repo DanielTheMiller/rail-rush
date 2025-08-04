@@ -1,13 +1,10 @@
 extends GutTest
 
-func test_passes():
-	# this test will pass because 1 does equal 1
-	assert_eq(1, 1)
-
 func test_grid_contains_all_cells():
 	# Setup
 	var mock_node = Node2D.new() # Create Node2d
 	var grid_service = preload("res://services/grid_service.gd").new(mock_node)
+#	var grid_service = grid_service_scene.new(mock_node)
 	var min_coord = Vector2i(0,0)
 	var max_coord = Vector2i(Constants.GRID_WIDTH-1, Constants.GRID_HEIGHT-1)
 	# Act & Assert
@@ -50,3 +47,13 @@ func test_game_grid_begins_at_x0y0():
 		assert_eq(Constants.RailType.OUT_OF_BOUNDS, spawn_rail1.rail_type, "Expected not to find a game piece outside of game bounds!")
 	assert_eq(Constants.RailType.OUT_OF_BOUNDS, spawn_rail2.rail_type, "Expected not to find a game piece outside of game bounds!")
 	assert_eq(Constants.RailType.OUT_OF_BOUNDS, spawn_rail3.rail_type, "Expected not to find a game piece outside of game bounds!")
+
+# Ensure that the method for finding a way into the grid returns 2 rail vectors
+# These rail vectors need to be right next to each other, and the direction enum
+# must be pointing the train the right way to the target rail 
+func test_find_spawning_rail_vector():
+	# Setup
+	var mock_node = Node2D.new() # Create Node2d
+	var grid_service: GridService = preload("res://services/grid_service.gd").new(mock_node)
+	# Act
+	grid_service.find_spawn_location()
