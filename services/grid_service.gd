@@ -5,9 +5,10 @@ var piece_scene := preload("res://tiles/track_piece.tscn")
 var rail_instances: Dictionary = {} # TODO: Perhaps rename to GRID
 var main: Node2D
 
-func _init(main_param: Node2D):
+func _init(main_param: Node2D, auto_populate: bool=true):
 	self.main = main_param
-	create_game_grid()
+	if auto_populate:
+		create_game_grid()
 
 func create_game_grid() -> void:
 	for x in range(0, Constants.GRID_WIDTH):
@@ -31,10 +32,10 @@ func spawn_rail(position: Vector2i, rail_type: Constants.RailType):
 	main.add_child(rail_instance)
 	rail_instances.set(position, rail_instance)
 
-func get_rail(position: Vector2i):
+func get_rail(position: Vector2i) -> Track:
 	return rail_instances[position]
 
-func grid_contains(position: Vector2i):
+func grid_contains(position: Vector2i) -> bool:
 	return rail_instances.has(position)
 
 func find_spawn_location(spawn_origin_dir: Constants.Side = Constants.Side.LEFT) -> SpawnInstruction:

@@ -10,7 +10,7 @@ func spawn_train() -> void:
 	match travelling_direction:
 		Constants.Direction.EAST:
 			# Spawn from left
-			position = target_rail.position - Vector2(Constants.CELL_SIZE_P, 0) + Constants.TRAIN_HORIZ_POS_OFFSET
+			position = current_rail.position - Vector2(Constants.CELL_SIZE_P, 0) + Constants.TRAIN_HORIZ_POS_OFFSET
 		_:
 			push_error("Cannot spawn train travelling %s" % travelling_direction)
 			return
@@ -19,7 +19,7 @@ func move() -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "position", target_rail.position + Constants.TRAIN_HORIZ_POS_OFFSET, move_duration_s)
 	turn_if_required()
-	await get_tree().create_timer(move_duration_s).timeout
+	#await get_tree().create_timer(move_duration_s).timeout
 
 # Given the current moving direction
 # Analyse the current rail direction, change our direction to match
@@ -32,8 +32,10 @@ func set_current_to_target() -> void:
 	current_rail = target_rail
 	target_rail = null
 
-func set_current_rail(rail: Track) -> void:
-	current_rail = rail
+func set_spawn_location(spawn_def: SpawnInstruction) -> void:
+	current_rail = spawn_def.first_rail
+	target_rail = spawn_def.second_rail
+	travelling_direction = spawn_def.direction
 
 func set_next_target_rail(rail: Track) -> void:
 	target_rail = rail
