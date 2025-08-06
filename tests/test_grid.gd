@@ -2,8 +2,8 @@ extends GutTest
 
 func test_grid_contains_all_cells():
 	# Setup
-	var mock_node = Node2D.new() # Create Node2d
-	var grid_service = preload("res://services/grid_service.gd").new(mock_node)
+	#var mock_node = Node2D.new() # Create Node2d
+	var grid_service = preload("res://services/grid_service.gd").new(self)
 #	var grid_service = grid_service_scene.new(mock_node)
 	var min_coord = Vector2i(0,0)
 	var max_coord = Vector2i(Constants.GRID_WIDTH-1, Constants.GRID_HEIGHT-1)
@@ -13,8 +13,8 @@ func test_grid_contains_all_cells():
 
 func test_grid_contains_spawning_and_exit_points():
 	# Setup
-	var mock_node = Node2D.new() # Create Node2d
-	var grid_service = preload("res://services/grid_service.gd").new(mock_node)
+	#var mock_node = Node2D.new() # Create Node2d
+	var grid_service = preload("res://services/grid_service.gd").new(self)
 	# Assert
 	for y_coord in range(Constants.GRID_HEIGHT):
 		var left_coord: Vector2i = Vector2i(-1, y_coord)
@@ -31,8 +31,7 @@ func test_grid_contains_spawning_and_exit_points():
 # This is a useful definition, and useful to enforce
 func test_game_grid_begins_at_x0y0():
 	# Setup
-	var mock_node = Node2D.new() # Create Node2d
-	var grid_service = preload("res://services/grid_service.gd").new(mock_node)
+	var grid_service = preload("res://services/grid_service.gd").new(self)
 	# Act
 	var spawn_rail1 = null
 	if (grid_service.grid_contains(Vector2i(-1,-1))):	
@@ -53,8 +52,8 @@ func test_game_grid_begins_at_x0y0():
 # must be pointing the train the right way to the target rail 
 func test_find_spawning_rail_vector_from_left():
 	# Setup
-	var mock_node = Node2D.new() # Create Node2d
-	var grid_service: GridService = preload("res://services/grid_service.gd").new(mock_node)
+	var root_scene = self
+	var grid_service: GridService = preload("res://services/grid_service.gd").new(root_scene)
 	var top_left_cell: Track = grid_service.get_rail(Vector2i(0,0))
 	# Act
 	var spawn_inst: SpawnInstruction = grid_service.find_spawn_location()
@@ -73,8 +72,7 @@ func test_find_spawning_rail_vector_from_left():
 # Ensure that every rail location can be used as a spawn.
 func test_only_one_possible_spawn_vector_from_left():
 	# Setup
-	var mock_node = Node2D.new() # Create Node2d
-	var grid_service: GridService = preload("res://services/grid_service.gd").new(mock_node, false)
+	var grid_service: GridService = preload("res://services/grid_service.gd").new(self, false)
 	TestUtils.PopulateGridWithVerticalRails(grid_service) # Populate with horizontal rails
 	# Act
 	for y in range(Constants.GRID_HEIGHT):
@@ -83,6 +81,6 @@ func test_only_one_possible_spawn_vector_from_left():
 		await rail.spin(true)
 		var spawn_inst: SpawnInstruction = grid_service.find_spawn_location()
 		assert_not_null(spawn_inst, "Couldn't find a place to enter! Expected to find %s" % coordinate)
-		rail.spin(false)
+		await rail.spin(false)
 		# await get_tree().create_timer(Constants.).timeout
 	# Assert

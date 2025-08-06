@@ -3,9 +3,10 @@ class_name GridService
 var piece_scene := preload("res://tiles/track_piece.tscn")
 
 var rail_instances: Dictionary = {} # TODO: Perhaps rename to GRID
-var main: Node2D
+var allowed_rail_types: Array[Constants.RailType] = [Constants.RailType.STRAIGHT, Constants.RailType.CURVE]
+var main
 
-func _init(main_param: Node2D, auto_populate: bool=true):
+func _init(main_param, auto_populate: bool=true):
 	self.main = main_param
 	if auto_populate:
 		create_game_grid()
@@ -13,8 +14,7 @@ func _init(main_param: Node2D, auto_populate: bool=true):
 func create_game_grid() -> void:
 	for x in range(0, Constants.GRID_WIDTH):
 		for y in range(0, Constants.GRID_HEIGHT):
-			var no_of_rail_types: int = len(Constants.RailType.values())
-			var rail_type: Constants.RailType = Constants.RailType.values()[randi() % no_of_rail_types]
+			var rail_type: Constants.RailType = allowed_rail_types[randi() % len(allowed_rail_types)]
 			spawn_rail(Vector2i(x, y), rail_type)
 		# Create the rails for de/spawning on
 		for y in [-1, Constants.GRID_HEIGHT]:
