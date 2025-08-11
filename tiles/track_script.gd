@@ -17,11 +17,9 @@ func _ready() -> void:
 	rotation_degrees = target_rotation
 
 func lock_track() -> void:
-	visible = false
 	is_locked = true
 	
 func unlock_track() -> void:
-	visible = true
 	is_locked = false
 
 func spin(clockwise: bool) -> void:
@@ -39,6 +37,8 @@ func spin(clockwise: bool) -> void:
 	operation_underway = false
 
 func train_can_enter(side: Constants.Side) -> bool:
+	if rail_type == Constants.RailType.OUT_OF_BOUNDS:
+		return true
 	var connected_sides: Array = get_connected_sides();
 	return connected_sides.has(side);
 
