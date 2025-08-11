@@ -23,10 +23,13 @@ func create_game_grid() -> void:
 		for y in range(0, Constants.GRID_HEIGHT):
 			spawn_rail(Vector2i(x, y), Constants.RailType.OUT_OF_BOUNDS)
 
-func spawn_rail(position: Vector2i, rail_type: Constants.RailType):
+func spawn_rail(position: Vector2i, rail_type: Constants.RailType, rotation: int = -1):
 	var rail_instance = piece_scene.instantiate()
 	rail_instance.position = Constants.RAIL_OFFSET + (position * Constants.CELL_SIZE_P)
-	rail_instance.target_rotation = (randi() % 4) * 90
+	if rotation == -1:
+		rotation = (randi() % 4) * 90
+	rail_instance.target_rotation = rotation
+	rail_instance.rotation_degrees = rotation
 	rail_instance.rail_type = rail_type
 	rail_instance.coordinate = position
 	main.add_child(rail_instance)
@@ -65,3 +68,9 @@ func find_spawn_location(spawn_origin_dir: Constants.Side = Constants.Side.LEFT)
 	var second: Track = get_rail(viable_rail_vector + Vector2i(1, 0))
 	var spawnDef = SpawnInstruction.new(first, second, Constants.Direction.EAST)
 	return spawnDef
+
+func destroy():
+	for rail_key in rail_instances.keys():
+		var rail: Track = rail_instances.get(rail_key)
+		rail.queue_free()
+		

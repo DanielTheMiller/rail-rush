@@ -2,7 +2,6 @@ extends GutTest
 
 func test_grid_contains_all_cells():
 	# Setup
-	#var mock_node = Node2D.new() # Create Node2d
 	var grid_service = preload("res://services/grid_service.gd").new(self)
 #	var grid_service = grid_service_scene.new(mock_node)
 	var min_coord = Vector2i(0,0)
@@ -10,6 +9,7 @@ func test_grid_contains_all_cells():
 	# Act & Assert
 	assert_true(grid_service.grid_contains(min_coord), "Grid lacks the minimum coord")
 	assert_true(grid_service.grid_contains(max_coord), "Grid lacks the max coord")
+	grid_service.destroy()
 
 func test_grid_contains_spawning_and_exit_points():
 	# Setup
@@ -26,6 +26,7 @@ func test_grid_contains_spawning_and_exit_points():
 		var bottom_coord: Vector2i = Vector2i(x_coord, Constants.GRID_HEIGHT)
 		assert_true(grid_service.grid_contains((top_coord)), "Grid doesn't contain top spawn %s" % top_coord)
 		assert_true(grid_service.grid_contains((bottom_coord)), "Grid doesn't contain bottom spawn %s" % bottom_coord)
+	grid_service.destroy()
 
 # Ensure that the actual play pieces start at x0 y0
 # This is a useful definition, and useful to enforce
@@ -46,6 +47,7 @@ func test_game_grid_begins_at_x0y0():
 		assert_eq(Constants.RailType.OUT_OF_BOUNDS, spawn_rail1.rail_type, "Expected not to find a game piece outside of game bounds!")
 	assert_eq(Constants.RailType.OUT_OF_BOUNDS, spawn_rail2.rail_type, "Expected not to find a game piece outside of game bounds!")
 	assert_eq(Constants.RailType.OUT_OF_BOUNDS, spawn_rail3.rail_type, "Expected not to find a game piece outside of game bounds!")
+	grid_service.destroy()
 
 # Ensure that the method for finding a way into the grid returns 2 rail vectors
 # These rail vectors need to be right next to each other, and the direction enum
@@ -66,6 +68,7 @@ func test_find_spawning_rail_vector_from_left():
 	assert_not_null(spawn_inst, "No spawn instruction was given after multiple attempts")
 	assert_eq(spawn_inst.first_rail.coordinate.x, -1, "Train from left isn't spawning offscreen")
 	assert_eq(spawn_inst.second_rail.coordinate.x, 0, "Train from left target isn't first cell on grid")
+	grid_service.destroy()
 
 # Iterate over every edge piece on the left.
 # On each iteration, only that single piece will be lined up with the exit.
@@ -84,3 +87,4 @@ func test_only_one_possible_spawn_vector_from_left():
 		await rail.spin(false)
 		# await get_tree().create_timer(Constants.).timeout
 	# Assert
+	grid_service.destroy()
