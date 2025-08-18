@@ -28,3 +28,10 @@ func test_train_can_leave_map_west():
 		await train.move()
 		await get_tree().create_timer(Constants.TRAIN_MOVE_TIME_S).timeout
 	grid_service.destroy()
+
+# Ensure that 3 trains can spawn and all reach their destinations in good time
+# Smooth journeys, no haulting
+func test_3_trains_spawn_and_despawn_in_good_time():
+	# My wonder for this is: can we leverage the main script?
+	# Can we make the main game loop invoke a sort of next_move() method?
+	# Th

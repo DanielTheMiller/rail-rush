@@ -21,6 +21,15 @@ enum Direction {
 	NULL
 }
 
+enum InstructionType {
+	START,
+	SPAWN_TRAIN,
+	SPAWN_COIN,
+	WAIT,
+	END_LEVEL,
+	GOTO
+}
+
 const GRID_HEIGHT = 10
 const GRID_WIDTH = 10
 const CELL_SIZE_P = 50
