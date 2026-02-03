@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RailRush", "RailRush.csproj", "{7085F371-252A-4DE9-937D-089400C49D51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7085F371-252A-4DE9-937D-089400C49D51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7085F371-252A-4DE9-937D-089400C49D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7085F371-252A-4DE9-937D-089400C49D51}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{7085F371-252A-4DE9-937D-089400C49D51}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{7085F371-252A-4DE9-937D-089400C49D51}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{7085F371-252A-4DE9-937D-089400C49D51}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCFB725C-42FC-4BFB-B2F4-BA9D6885181F}
+	EndGlobalSection
+EndGlobal

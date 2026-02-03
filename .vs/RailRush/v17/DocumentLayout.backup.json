@@ -1,0 +1,173 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|c:\\users\\mille\\projects\\godot\\railrush\\actions\\dtos\\waitactiondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|solutionrelative:actions\\dtos\\waitactiondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|c:\\users\\mille\\projects\\godot\\railrush\\actions\\dtos\\trainspawnactiondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|solutionrelative:actions\\dtos\\trainspawnactiondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|c:\\users\\mille\\projects\\godot\\railrush\\actions\\action.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|solutionrelative:actions\\action.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|c:\\users\\mille\\projects\\godot\\railrush\\actions\\coinspawnaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|solutionrelative:actions\\coinspawnaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|c:\\users\\mille\\projects\\godot\\railrush\\actions\\waitaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|solutionrelative:actions\\waitaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|c:\\users\\mille\\projects\\godot\\railrush\\actions\\trainspawnaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|solutionrelative:actions\\trainspawnaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|c:\\users\\mille\\projects\\godot\\railrush\\actions\\dtos\\coinspawnactiondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|solutionrelative:actions\\dtos\\coinspawnactiondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|c:\\users\\mille\\projects\\godot\\railrush\\actions\\dtos\\actiondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|solutionrelative:actions\\dtos\\actiondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|c:\\users\\mille\\projects\\godot\\railrush\\helpers\\routineloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7085F371-252A-4DE9-937D-089400C49D51}|RailRush.csproj|solutionrelative:helpers\\routineloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CoinSpawnAction.cs",
+              "DocumentMoniker": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\CoinSpawnAction.cs",
+              "RelativeDocumentMoniker": "actions\\CoinSpawnAction.cs",
+              "ToolTip": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\CoinSpawnAction.cs",
+              "RelativeToolTip": "actions\\CoinSpawnAction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T20:03:42.393Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TrainSpawnAction.cs",
+              "DocumentMoniker": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\TrainSpawnAction.cs",
+              "RelativeDocumentMoniker": "actions\\TrainSpawnAction.cs",
+              "ToolTip": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\TrainSpawnAction.cs",
+              "RelativeToolTip": "actions\\TrainSpawnAction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T20:03:27.338Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Action.cs",
+              "DocumentMoniker": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\Action.cs",
+              "RelativeDocumentMoniker": "actions\\Action.cs",
+              "ToolTip": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\Action.cs",
+              "RelativeToolTip": "actions\\Action.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T19:58:33.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WaitActionData.cs",
+              "DocumentMoniker": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\dtos\\WaitActionData.cs",
+              "RelativeDocumentMoniker": "actions\\dtos\\WaitActionData.cs",
+              "ToolTip": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\dtos\\WaitActionData.cs",
+              "RelativeToolTip": "actions\\dtos\\WaitActionData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-31T07:47:50.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CoinSpawnActionData.cs",
+              "DocumentMoniker": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\dtos\\CoinSpawnActionData.cs",
+              "RelativeDocumentMoniker": "actions\\dtos\\CoinSpawnActionData.cs",
+              "ToolTip": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\dtos\\CoinSpawnActionData.cs",
+              "RelativeToolTip": "actions\\dtos\\CoinSpawnActionData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-31T07:42:07.817Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TrainSpawnActionData.cs",
+              "DocumentMoniker": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\dtos\\TrainSpawnActionData.cs",
+              "RelativeDocumentMoniker": "actions\\dtos\\TrainSpawnActionData.cs",
+              "ToolTip": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\dtos\\TrainSpawnActionData.cs",
+              "RelativeToolTip": "actions\\dtos\\TrainSpawnActionData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-31T07:47:09.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WaitAction.cs",
+              "DocumentMoniker": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\WaitAction.cs",
+              "RelativeDocumentMoniker": "actions\\WaitAction.cs",
+              "ToolTip": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\WaitAction.cs",
+              "RelativeToolTip": "actions\\WaitAction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T20:02:57.572Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ActionData.cs",
+              "DocumentMoniker": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\dtos\\ActionData.cs",
+              "RelativeDocumentMoniker": "actions\\dtos\\ActionData.cs",
+              "ToolTip": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\actions\\dtos\\ActionData.cs",
+              "RelativeToolTip": "actions\\dtos\\ActionData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAIwAgAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-31T07:40:11.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RoutineLoader.cs",
+              "DocumentMoniker": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\helpers\\RoutineLoader.cs",
+              "RelativeDocumentMoniker": "helpers\\RoutineLoader.cs",
+              "ToolTip": "C:\\Users\\mille\\Projects\\Godot\\RailRush\\helpers\\RoutineLoader.cs",
+              "RelativeToolTip": "helpers\\RoutineLoader.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-19T23:31:49.915Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

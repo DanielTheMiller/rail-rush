@@ -73,18 +73,47 @@ func test_find_spawning_rail_vector_from_left():
 # Iterate over every edge piece on the left.
 # On each iteration, only that single piece will be lined up with the exit.
 # Ensure that every rail location can be used as a spawn.
-func test_only_one_possible_spawn_vector_from_left():
+func test_only_one_possible_spawn_vector_from_left_and_right():
 	# Setup
 	var grid_service: GridService = preload("res://services/grid_service.gd").new(self, false)
-	TestUtils.PopulateGridWithVerticalRails(grid_service) # Populate with horizontal rails
+	TestUtils.PopulateGridWithVerticalRails(grid_service) # Populate with vertical rails
+	var spawn_inst: SpawnInstruction = grid_service.find_spawn_location(Constants.Side.LEFT)
+	assert_null(spawn_inst, "Found a way to enter a grid from the left - should have no possibility")
+	spawn_inst = grid_service.find_spawn_location(Constants.Side.RIGHT)
+	assert_null(spawn_inst, "Found a way to enter a grid from the right - should have no possibility")
 	# Act
-	for y in range(Constants.GRID_HEIGHT):
-		var coordinate: Vector2i = Vector2i(0, y)
-		var rail = grid_service.get_rail(coordinate)
-		await rail.spin(true)
-		var spawn_inst: SpawnInstruction = grid_service.find_spawn_location()
-		assert_not_null(spawn_inst, "Couldn't find a place to enter! Expected to find %s" % coordinate)
-		await rail.spin(false)
+	for x in [0, Constants.GRID_WIDTH-1]:
+		var currentDir: Constants.Side = Constants.Side.LEFT if x == 0 else Constants.Side.RIGHT
+		for y in [0, Constants.GRID_HEIGHT-1]:
+			var coordinate: Vector2i = Vector2i(x, y)
+			var rail = grid_service.get_rail(coordinate)
+			await rail.spin(true)
+			spawn_inst = grid_service.find_spawn_location(currentDir)
+			assert_not_null(spawn_inst, "Couldn't find a place to enter! Expected to find %s" % coordinate)
+			await rail.spin(false)
+		# await get_tree().create_timer(Constants.).timeout
+	# Assert
+	grid_service.destroy()
+
+# Iterate over every edge piece on the top.
+# On each iteration, only that single piece will be lined up with the exit.
+# Ensure that every rail location can be used as a spawn.
+func test_only_one_possible_spawn_vector_from_top_and_bottom():
+	# Setup
+	var grid_service: GridService = preload("res://services/grid_service.gd").new(self, false)
+	TestUtils.PopulateGridWithHorizontalRails(grid_service) # Populate with horizontal rails
+	var spawn_inst: SpawnInstruction = grid_service.find_spawn_location(Constants.Side.TOP)
+	assert_null(spawn_inst, "Found a way to enter a grid that should have no possibility")
+	# Act
+	for y in [0, Constants.GRID_HEIGHT-1]:
+		var currentDir: Constants.Side = Constants.Side.TOP if y == 0 else Constants.Side.BOTTOM
+		for x in [0, Constants.GRID_WIDTH-1]:
+			var coordinate: Vector2i = Vector2i(x, y)
+			var rail = grid_service.get_rail(coordinate)
+			await rail.spin(true)
+			spawn_inst = grid_service.find_spawn_location(currentDir)
+			assert_not_null(spawn_inst, "Couldn't find a place to enter! Expected to find %s" % coordinate)
+			await rail.spin(false)
 		# await get_tree().create_timer(Constants.).timeout
 	# Assert
 	grid_service.destroy()
